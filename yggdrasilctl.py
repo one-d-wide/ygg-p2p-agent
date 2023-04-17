@@ -15,8 +15,8 @@ class AdminAPI:
         connection = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
         try:
             connection.connect(self.address)
-        except socket.socket_error:
-            raise APIUnreachable(f"Can't connect to {self.address}")
+        except Exception as err:
+            raise APIUnreachable(f"Can't connect to {self.address}: {err}")
         return connection
 
     def request(self, method: str, **kwargs)->dict:
